@@ -2,33 +2,24 @@ pub fn day01(input_lines: &str) -> (String, String) {
     let mut numbers: Vec<i32> = Vec::new();
     for line in input_lines.lines() {
         let mut found_first_number = false;
+        let mut line_value = 0;
+        let mut last_num = 0;
         for character in line.chars() {
             if character.is_digit(10) {
+                let new_num = character.to_digit(10).unwrap() as i32;
                 if !found_first_number {
-                    let new_num = character.to_digit(10).unwrap() as i32;
-                    numbers.push(new_num * 10);
+                    line_value = new_num * 10;
                     found_first_number = true;
                 } else {
-                    break;
+                    last_num = character.to_digit(10).unwrap() as i32;
                 }
             }
         }
-    }
-    let mut line_num = 0;
-    for line in input_lines.lines() {
-        let mut found_second_number = false;
-        for character in line.chars().rev() {
-            if character.is_digit(10) {
-                if !found_second_number {
-                    let new_num = character.to_digit(10).unwrap() as i32;
-                    numbers[line_num] += new_num;
-                    found_second_number = true;
-                } else {
-                    line_num += 1;
-                    break;
-                }
-            }
+        if last_num == 0 {
+            last_num = line_value / 10;
         }
+        line_value += last_num;
+        numbers.push(line_value);
     }
     let answer1 = numbers.iter().sum::<i32>();
 

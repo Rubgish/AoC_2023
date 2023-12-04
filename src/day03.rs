@@ -23,7 +23,6 @@ pub fn day03(input_lines: &str) -> (String, String) {
                     num: new_num,
                     pos: (lin_num as i32, col_num as i32),
                 });
-                // println!("{},{}: {}", lin_num, col_num, new_num);
             } else if !c.is_digit(10) {
                 in_num = false;
             }
